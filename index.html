@@ -7,7 +7,6 @@
     function handleClientLoad() {
       gapi.load('client:auth2', initClient);
     }
-
     function initClient() {
       gapi.client.init({
         apiKey: 'AIzaSyCb20gT-AhmMeJjKy018qKstRQLO8rEIPA',
@@ -16,11 +15,28 @@
         scope: 'https://www.googleapis.com/auth/drive.readonly'
       }).then(function () {
         // Autorización del usuario
-        gapi.auth2.getAuthInstance().signIn();
+        gapi.auth2.getAuthInstance().signIn().then(function () {
+          // Obtener la lista de archivos de la carpeta
+          gapi.client.drive.files.list({
+            'q': "'FOLDER_ID' in parents",
+            'fields': "nextPageToken, files(id, name)"
+          }).then(function(response) {
+            var files = response.result.files;
+            var fileList = document.createElement('ul');
+            for (var i = 0; i < files.length; i++) {
+              var file = files[i];
+              var listItem = document.createElement('li');
+              listItem.appendChild(document.createTextNode(file.name));
+              fileList.appendChild(listItem);
+            }
+            document.body.appendChild(fileList);
+          });
+        });
       }, function(error) {
         console.log(JSON.stringify(error, null, 2));
       });
     }
+
   </script>
 </head>
 <body>
