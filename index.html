@@ -18,7 +18,7 @@
         gapi.auth2.getAuthInstance().signIn().then(function () {
           // Obtener la lista de archivos de la carpeta
           gapi.client.drive.files.list({
-            'q': "'FOLDER_ID' in parents",
+            'q': "'1yKVcF-RMLpSlUHC8xEeq0sKvmfJ86Cp1' in parents",
             'fields': "nextPageToken, files(id, name)"
           }).then(function(response) {
             var files = response.result.files;
