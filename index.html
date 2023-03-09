@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lista de archivos en Google Drive</title>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script>
+    function handleClientLoad() {
+      gapi.load('client:auth2', initClient);
+    }
+
+    function initClient() {
+      gapi.client.init({
+        apiKey: 'AIzaSyCb20gT-AhmMeJjKy018qKstRQLO8rEIPA',
+        clientId: '1017629782257-oabqtn6q9bcolck1ej13fmdro7t23vl7.apps.googleusercontent.com',
+        discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+        scope: 'https://www.googleapis.com/auth/drive.readonly'
+      }).then(function () {
+        // Autorización del usuario
+        gapi.auth2.getAuthInstance().signIn();
+      }, function(error) {
+        console.log(JSON.stringify(error, null, 2));
+      });
+    }
+  </script>
+</head>
+<body>
+  <button onclick="handleClientLoad()">Autorizar</button>
+</body>
+</html>
+
+
